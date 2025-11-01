@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+    </div>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            {% if session['user_id'] %}
+                <li><a href="{{ url_for('welcome') }}">Welcome</a></li>
+                {% if session['role'] == 'admin' %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('change_password') }}">Change Password</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

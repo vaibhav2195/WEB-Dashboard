@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>Welcome, {{ session['username'] }}!</h1>
-        <p>
-            <a href="{{ url_for('change_password') }}" class="btn btn-primary">Change Password</a>
-            <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
-        </p>
+        {% if user.role == 'student' %}
+            <h2>Your Details</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Roll No</th>
+                        <td>{{ user.roll_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <td>{{ user.course }}</td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>{{ user.department }}</td>
+                    </tr>
+                    <tr>
+                        <th>Year</th>
+                        <td>{{ user.year }}</td>
+                    </tr>
+                    <tr>
+                        <th>Birth Date</th>
+                        <td>{{ user.birth_date }}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}

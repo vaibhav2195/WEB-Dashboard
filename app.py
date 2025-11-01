@@ -48,12 +48,20 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        roll_no = request.form['roll_no']
+        department = request.form['department']
+        year = request.form['year']
+        birth_date = request.form['birth_date']
+        course = request.form['course']
+
         if len(password) < 6:
             flash('Password must be at least 6 characters long.', 'danger')
             return render_template('register.html')
+
         db = get_db()
         try:
-            db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+            db.execute('INSERT INTO users (username, password, roll_no, department, year, birth_date, course) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                       (username, password, roll_no, department, year, birth_date, course))
             db.commit()
             flash('Registration successful. Please login.', 'success')
             return redirect(url_for('login'))
@@ -72,7 +80,9 @@ def logout():
 def welcome():
     if session['role'] == 'admin':
         return redirect(url_for('dashboard'))
-    return render_template('welcome.html')
+    db = get_db()
+    user = db.execute('SELECT * FROM users WHERE id = ?', (session['user_id'],)).fetchone()
+    return render_template('welcome.html', user=user)
 
 @app.route('/dashboard')
 @login_required

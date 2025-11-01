@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>Admin Dashboard</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         <h2>Users</h2>
         <table class="table">
             <thead>
@@ -56,7 +47,5 @@
             </div>
             <input type="submit" value="Create" class="btn btn-primary">
         </form>
-        <a href="{{ url_for('logout') }}" class="btn btn-danger logout-link">Logout</a>
     </div>
-</body>
-</html>
+{% endblock %}

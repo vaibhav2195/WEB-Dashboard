@@ -5,6 +5,68 @@ body {
     padding: 0;
 }
 
+.header {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    left: -250px;
+    transition: left 0.3s;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h2 {
+    text-align: center;
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s;
+}
+
 .container {
     width: 80%;
     margin: 20px auto;
