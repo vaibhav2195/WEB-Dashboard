@@ -38,7 +38,7 @@ user-management-app/
 1.  **Clone the repository:**
 
     ```
-    git clone <repository-url>
+    git clone https://github.com/vaibhav2195/WEB-Dashboard
     ```
 
 2.  **Navigate to the project directory:**
