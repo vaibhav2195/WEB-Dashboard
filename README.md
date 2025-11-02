@@ -71,16 +71,17 @@ This is a simple role-based user management web application built with Python an
 
 ### Login Page
 
-[Screenshot of the login page]
+![Screenshot of the login page](ss/home.png)
+
 
 ### Register Page
 
-[Screenshot of the register page]
+![Screenshot of the register page](ss/reg.png)
 
 ### Admin Dashboard
 
-[Screenshot of the admin dashboard]
+![Screenshot of the admin dashboard](ss/admindas.png)
 
 ### Student Welcome Page
 
-[Screenshot of the student welcome page]
+![Screenshot of the student welcome page](ss/stu.png)
