@@ -79,7 +79,12 @@ def logout():
 @login_required
 def welcome():
     if session['role'] == 'admin':
-        return redirect(url_for('dashboard'))
+        db = get_db()
+        total_students = db.execute('SELECT COUNT(*) FROM users WHERE role = ?', ('student',)).fetchone()[0]
+        department_counts = db.execute('SELECT department, COUNT(*) FROM users WHERE role = ? GROUP BY department', ('student',)).fetchall()
+        department_labels = [row['department'] for row in department_counts]
+        department_data = [row['COUNT(*)'] for row in department_counts]
+        return render_template('admin_welcome.html', total_students=total_students, department_labels=department_labels, department_data=department_data)
     db = get_db()
     user = db.execute('SELECT * FROM users WHERE id = ?', (session['user_id'],)).fetchone()
     return render_template('welcome.html', user=user)
@@ -89,7 +94,7 @@ def welcome():
 @admin_required
 def dashboard():
     db = get_db()
-    users = db.execute('SELECT * FROM users').fetchall()
+    users = db.execute("SELECT * FROM users WHERE role = 'student'").fetchall()
     return render_template('dashboard.html', users=users)
 
 @app.route('/create_user', methods=['POST'])
@@ -98,12 +103,12 @@ def dashboard():
 def create_user():
     username = request.form['username']
     password = request.form['password']
+    role = 'student'
     if len(password) < 6:
         flash('Password must be at least 6 characters long.', 'danger')
         db = get_db()
         users = db.execute('SELECT * FROM users').fetchall()
         return render_template('dashboard.html', users=users)
-    role = request.form['role']
     db = get_db()
     try:
         db.execute('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', (username, password, role))

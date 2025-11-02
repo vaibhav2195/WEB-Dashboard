@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Welcome{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Welcome, Admin!</h1>
+        <h2>Raj Kumar Institute of Technology</h2>
+        <p>Total Students: {{ total_students }}</p>
+        <div style="width: 50%; margin: auto;">
+            <canvas id="departmentChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('departmentChart').getContext('2d');
+        var departmentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ department_labels | tojson }},
+                datasets: [{
+                    label: 'Number of Students',
+                    data: {{ department_data | tojson }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

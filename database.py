@@ -12,7 +12,3 @@ def init_db():
     with open('schema.sql', 'r') as f:
         db.executescript(f.read())
     db.commit()
-    cursor = db.execute('SELECT COUNT(*) FROM users')
-    if cursor.fetchone()[0] == 0:
-        db.execute("INSERT INTO users (username, password, role) VALUES ('admin', 'admin', 'admin')")
-        db.commit()

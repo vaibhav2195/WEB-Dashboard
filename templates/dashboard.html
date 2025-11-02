@@ -18,11 +18,13 @@
             <tbody>
                 {% for user in users %}
                 <tr>
-                    <td>{{ user['id'] }}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ user['username'] }}</td>
                     <td>{{ user['role'] }}</td>
                     <td>
-                        <a href="{{ url_for('delete_user', id=user['id']) }}" class="btn btn-danger">Delete</a>
+                        {% if user.id != session['user_id'] %}
+                            <a href="{{ url_for('delete_user', id=user['id']) }}" class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -37,13 +39,6 @@
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Role</label>
-                <select name="role" class="form-control">
-                    <option value="student">Student</option>
-                    <option value="admin">Admin</option>
-                </select>
             </div>
             <input type="submit" value="Create" class="btn btn-primary">
         </form>
