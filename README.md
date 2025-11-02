@@ -8,12 +8,37 @@ This is a simple role-based user management web application built with Python an
 *   **Frontend:** HTML, CSS, JavaScript
 *   **Database:** SQLite
 
+## File Structure
+
+```
+user-management-app/
+├── app.py
+├── database.db
+├── database.py
+├── README.md
+├── requirements.txt
+├── schema.sql
+├── seed.py
+├── static/
+│   └── style.css
+├── templates/
+│   ├── admin_welcome.html
+│   ├── base.html
+│   ├── base_anonymous.html
+│   ├── change_password.html
+│   ├── dashboard.html
+│   ├── index.html
+│   ├── login.html
+│   └── register.html
+└── venv/
+```
+
 ## Project Setup
 
 1.  **Clone the repository:**
 
     ```
-    git clone https://github.com/vaibhav2195/WEB-Dashboard
+    git clone <repository-url>
     ```
 
 2.  **Navigate to the project directory:**
@@ -67,11 +92,40 @@ This is a simple role-based user management web application built with Python an
 *   **Username:** admin
 *   **Password:** admin
 
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint     | Role      | Description                                      |
+| :----- | :----------- | :-------- | :----------------------------------------------- |
+| GET    | `/`          | Anonymous | Displays the index page.                           |
+| GET    | `/login`     | Anonymous | Displays the login page.                           |
+| POST   | `/login`     | Anonymous | Logs in a user.                                  |
+| GET    | `/register`  | Anonymous | Displays the registration page.                    |
+| POST   | `/register`  | Anonymous | Registers a new student user.                      |
+| GET    | `/logout`    | User      | Logs out the current user.                       |
+
+### User
+
+| Method | Endpoint          | Role   | Description                                      |
+| :----- | :---------------- | :----- | :----------------------------------------------- |
+| GET    | `/welcome`        | User   | Displays the welcome page for the logged-in user. |
+| GET    | `/change_password`| User   | Displays the change password page.               |
+| POST   | `/change_password`| User   | Changes the password of the current user.        |
+
+### Admin
+
+| Method | Endpoint         | Role  | Description                                      |
+| :----- | :--------------- | :---- | :----------------------------------------------- |
+| GET    | `/dashboard`     | Admin | Displays the admin dashboard with a list of students. |
+| POST   | `/create_user`   | Admin | Creates a new student user.                      |
+| GET    | `/delete_user/<id>` | Admin | Deletes a student user by their ID.              |
+
 ## Screenshots
 
-### Login Page
+### HOME Page
 
-![Screenshot of the login page](ss/home.png)
+![Screenshot of the Home page](ss/home.png)
 
 
 ### Register Page
@@ -85,3 +139,5 @@ This is a simple role-based user management web application built with Python an
 ### Student Welcome Page
 
 ![Screenshot of the student welcome page](ss/stu.png)
+
+
